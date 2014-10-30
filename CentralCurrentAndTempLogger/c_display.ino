@@ -1,7 +1,4 @@
-// Sampling and Wifi LEDS
-#define LED_WIFI 9
-#define LED_SAMPLE 8
-
+// LED strip is connected to pin 6
 #define LED_STRIP_PIN 6
 
 // Neopixels libs
@@ -18,6 +15,11 @@
 //   NEO_GRB     Pixels are wired for GRB bitstream (most NeoPixel products)
 //   NEO_RGB     Pixels are wired for RGB bitstream (v1 FLORA pixels, not v2)
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(8, LED_STRIP_PIN, NEO_GRB + NEO_KHZ800);
+
+// Connect CLK to the I2C clock - on Arduino UNO thats Analog #5, on the Leonardo it's Digital #3, on the Mega it's digital #21
+// Connect DAT to the I2C data - on Arduino UNO thats Analog #4, on the Leonardo it's Digital #2, on the Mega it's digital #20
+// Connect GND to common ground
+// Connect VCC+ to power - 5V
 Adafruit_7segment matrix = Adafruit_7segment();
 
 // Create 6 colors for later use (http://www.bretttolbert.com/projects/colorscale/)
