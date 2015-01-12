@@ -34,7 +34,8 @@ Adafruit_CC3000_Client
   client;        // For WiFi connections
 const char
   host[]          = "my.server.com",
-  endpoint[]      = "/current/data.json";
+  endpoint[]      = "/current/data.json",
+  private_key[]   = "PrIvAtEkEy"; // 12 characters long !!
 uint32_t ip = 0L, t;
 char Wstr[15];
 
