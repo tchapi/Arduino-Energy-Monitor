@@ -3,6 +3,7 @@
 #include <SPI.h>
 #include <string.h>
 #include "utility/debug.h"
+#include "utility/socket.h"
 
 // These are the interrupt and control pins
 #define ADAFRUIT_CC3000_IRQ   3  // MUST be an interrupt pin!
@@ -42,24 +43,22 @@ char Wstr[15];
 Send a value to a server
 
 */
-boolean sendValue(String value) {
+boolean sendValues(double temp, int W) {
   
-  cc3000.getHostByName((char *)host, &ip);
-
   // Connect to numeric IP
-  debug(F("Connecting to server ... "));
-  t = millis();
-  do {
-    client = cc3000.connectTCP(ip, 80);
-  } while((!client.connected()) &&
-          ((millis() - t) < connectTimeout));
+  client = cc3000.connectTCP(ip, 80);
 
   if(client.connected()) { // Success!
-    debug(F("Done."));
     
-    debug(F("Issuing HTTP request..."));
+    // Creating the message for POST
+    char message[30 + 1] = "";
+    char str_temp[4 + 1] = "";
+    dtostrf(temp, 4, 1, str_temp);
+    sprintf(message, "t=%s&w=%d&key=%s", str_temp, W, private_key);
+  
+    Serial.print("Sending POST data... "));
     
-    client.fastrprint(F("GET "));
+    client.fastrprint(F("POST "));
     client.fastrprint(endpoint);
     client.fastrprint(F(" HTTP/1.1\r\n"));
     client.fastrprint(F("Host: "));
@@ -67,27 +66,26 @@ boolean sendValue(String value) {
     client.fastrprint(F("\r\nConnection: close\r\n"
                        "Content-Type: application/octet-stream;charset=UTF-8\r\n"
                        "Content-Length: "));
-    client.print(7 + /*encodedLength(value)*/ 2);
-    client.fastrprint(F("\r\n"));
-    
-    client.println();
+    client.print(encodedLength(message));
+    client.fastrprint(F("\r\n\r\n"));
+    urlEncode(client, message, false, false);
 
-    Serial.print(F("OK\r\nAwaiting response..."));
+    // Serial.print(F("OK\r\nAwaiting response..."));
     int c = 0;
     // Dirty trick: instead of parsing results, just look for opening
     // curly brace indicating the start of a successful JSON response.
     while(((c = timedRead()) > 0) && (c != '{'));
     if(c == '{') {
-      debug(F("success!"));
+      debug(F("done."));
     } else if(c < 0) {
-      debug(F("timeout"));
+      debug(F("timeout."));
     } else {
-      debug(F("error"));
+      debug(F("error."));
     }
     client.close();
     return (c == '{');
   } else {
-    debug(F("Failed."));
+    debug(F("Failed to connect."));
     return false;
   }
 

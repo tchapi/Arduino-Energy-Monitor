@@ -8,21 +8,20 @@ void loop() {
 
   double Irms = calcIrms(1480);  // Calculate Irms only
   int W = (int)(Irms*VOLTAGE);
-  itoa(W, Wstr,10); // Copies the value in a string for sending the value
 
-  double temp = getTemperature(4000);  // Calculate T
-
-  if (DEBUG) { 
-    Serial.print("Apparent Instant Power : ");
-    Serial.print(W);  // Apparent power
-    Serial.print(" W (");
-    Serial.print(Irms);  // Irms
-    Serial.println("A) ");
-
-    Serial.print("Apparent Temperature : ");
-    Serial.print(temp);  // Apparent temp
-    Serial.println("C");
-  }
+  double temp = getTemperature(10000);  // Calculate T
+// 
+//  if (DEBUG) { 
+//    Serial.print("Apparent Instant Power : ");
+//    Serial.print(W);  // Apparent power
+//    Serial.print(" W (");
+//    Serial.print(Irms);  // Irms
+//    Serial.println("A) ");
+//
+//    Serial.print("Apparent Temperature : ");
+//    Serial.print(temp);  // Apparent temp
+//    Serial.println("C");
+//  }
   
   // Not sampling anymore
   strip.setPixelColor(1,0,0,0);
@@ -67,19 +66,17 @@ void loop() {
     /**************************************/
     /*               SENDING              */
     /**************************************/
-    strip.setPixelColor(0,255,255,255);
-    strip.show();
-    
+
     // if ten seconds have passed since your last connection,
     // then connect again and send data:
-  /*  if (millis() - lastConnectionTime > postingInterval) {
-      sendValue(Wstr);
-      //blinkLed(LED_WIFI);
+    if (millis() - lastConnectionTime > postingInterval) {
+      strip.setPixelColor(0,255,255,255);
+      strip.show();
+      sendValues(temp, W); // Actually send to the server
       lastConnectionTime = millis();
+      strip.setPixelColor(0,0,0,0);
+      strip.show();
     }
-  */
-    strip.setPixelColor(0,0,0,0);
-    strip.show();
 
   }
   
