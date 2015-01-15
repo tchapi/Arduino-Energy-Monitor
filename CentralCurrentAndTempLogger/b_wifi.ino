@@ -18,24 +18,24 @@ SPI_CLOCK_DIVIDER); // you can change this clock speed but DI
 // Security can be WLAN_SEC_UNSEC, WLAN_SEC_WEP, WLAN_SEC_WPA or WLAN_SEC_WPA2
 #define WLAN_SECURITY   WLAN_SEC_WPA2
 
-#define WLAN_SSID       "Your SSID"        // cannot be longer than 32 characters!
-#define WLAN_PASS       "Your Password"
+#define WLAN_SSID       "tchap"        // cannot be longer than 32 characters!
+#define WLAN_PASS       "tchaptchaptchap"
 
 // Wifi definitions
 const unsigned long
     dhcpTimeout     = 60L * 1000L, // Max time to wait for address from DHCP
     connectTimeout  = 15L * 1000L, // Max time to wait for server connection
     responseTimeout = 15L * 1000L, // Max time to wait for data from server
-    postingInterval = 5L * 1000L; //delay between samples
+    postingInterval = 10L * 1000L; //delay between samples
 unsigned long
     currentTime = 0L,
     lastConnectionTime = 0L;
 Adafruit_CC3000_Client
   client;        // For WiFi connections
 const char
-  host[]          = "my.server.com",
-  endpoint[]      = "/current/data.json",
-  private_key[]   = "PrIvAtEkEy"; // 12 characters long !!
+  host[]          = "tchap.me",
+  endpoint[]      = "/test.php",
+  private_key[]   = "m88JNhTBEZyX"; // 12 characters long !!
 uint32_t ip = 0L, t;
 char Wstr[15];
 
@@ -57,7 +57,7 @@ boolean sendValues(double temp, int W) {
     dtostrf(temp, 4, 1, str_temp);
     sprintf(message, "t=%s&w=%d&key=%s", str_temp, W, private_key);
   
-    Serial.print("Sending POST data... "));
+    Serial.print("Sending POST data... ");
     
     client.fastrprint(F("POST "));
     client.fastrprint(endpoint);
