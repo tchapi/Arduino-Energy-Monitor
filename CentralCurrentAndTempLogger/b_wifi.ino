@@ -54,8 +54,9 @@ boolean sendValues(double temp, int W) {
     // Creating the message for POST
     char message[30 + 1] = "";
     char str_temp[4 + 1] = "";
+    char str_power[5 + 1] = "";
     dtostrf(temp, 4, 1, str_temp);
-    sprintf(message, "t=%s&w=%d&key=%s", str_temp, W, private_key);
+    sprintf(str_power, "%d", W);
   
     Serial.print("Sending POST data... ");
     
@@ -65,11 +66,15 @@ boolean sendValues(double temp, int W) {
     client.fastrprint(F("Host: "));
     client.fastrprint(host);
     client.fastrprint(F("\r\nConnection: close\r\n"
-                       "Content-Type: application/octet-stream;charset=UTF-8\r\n"
+                       "Content-Type: application/x-www-form-urlencoded;charset=UTF-8\r\n"
                        "Content-Length: "));
-    client.print(encodedLength(message));
-    client.fastrprint(F("\r\n\r\n"));
-    urlEncode(client, message, false, false);
+    client.print(encodedLength(str_temp) + encodedLength(str_power) + encodedLength(private_key) + 10);
+    client.fastrprint(F("\r\n\r\nt="));
+    urlEncode(client, str_temp, false, false);
+    client.fastrprint(F("&w="));
+    urlEncode(client, str_power, false, false);
+    client.fastrprint(F("&key="));
+    urlEncode(client, private_key, false, false);
 
     // Serial.print(F("OK\r\nAwaiting response..."));
     int c = 0;
