@@ -1,6 +1,3 @@
-PRIVATE_KEY = "m88JNhTBEZyX";
-LOG_FILE = "/var/log/energy/energy.log";
-
 var express = require('express')
 var app = express()
 
@@ -11,11 +8,22 @@ var fs = require('fs')
 var bodyParser = require("body-parser")
 app.use(bodyParser.urlencoded({ extended: false }))
 
+// Read config file
+var data = fs.readFileSync('config.json'),
+    config;
+
+try {
+  config = JSON.parse(data);
+} catch (err) {
+  console.log('There has been an error parsing the config file.')
+  throw err
+}
+
 // accept POST request
 app.post('/home/energy', function (req, res) {
 
   // Check for key
-  if (req.body.key == PRIVATE_KEY) {
+  if (req.body.key == config.PRIVATE_KEY) {
     
     temperature = req.body.t
     power = req.body.w
@@ -28,7 +36,7 @@ app.post('/home/energy', function (req, res) {
     */
     var log_message = date + " " + temperature + " " + power
 
-    fs.appendFile(LOG_FILE, log_message + "\n", function (err) {
+    fs.appendFile(config.LOG_FILE, log_message + "\n", function (err) {
       if (err) {
         throw err;
         res.json({ code: 0 })
