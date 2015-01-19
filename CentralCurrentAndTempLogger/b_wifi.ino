@@ -4,6 +4,7 @@
 #include <string.h>
 #include "utility/debug.h"
 #include "utility/socket.h"
+#include "config.h"
 
 // These are the interrupt and control pins
 #define ADAFRUIT_CC3000_IRQ   3  // MUST be an interrupt pin!
@@ -18,9 +19,6 @@ SPI_CLOCK_DIVIDER); // you can change this clock speed but DI
 // Security can be WLAN_SEC_UNSEC, WLAN_SEC_WEP, WLAN_SEC_WPA or WLAN_SEC_WPA2
 #define WLAN_SECURITY   WLAN_SEC_WPA2
 
-#define WLAN_SSID       "Your SSID"        // cannot be longer than 32 characters!
-#define WLAN_PASS       "Your Password"
-
 // Wifi definitions
 const unsigned long
     dhcpTimeout     = 60L * 1000L, // Max time to wait for address from DHCP
@@ -32,10 +30,6 @@ unsigned long
     lastConnectionTime = 0L;
 Adafruit_CC3000_Client
   client;        // For WiFi connections
-const char
-  host[]          = "server.com",
-  endpoint[]      = "/endpoint";
-char private_key[]   = "mYPrIvAtEkEy"; // 12 characters long !!
 uint32_t ip = 0L, t;
 char Wstr[15];
 
@@ -113,6 +107,7 @@ Minimalist time server query; adapted from Adafruit Gutenbird sketch,
 which in turn has roots in Arduino UdpNTPClient tutorial.
 
 */
+/*
 unsigned long getTime(void) {
 
   uint8_t       buf[48];
@@ -161,7 +156,7 @@ unsigned long getTime(void) {
   if(!t) debug(F("error"));
   return t;
 }
-
+*/
 // For URL-encoding functions below
 static const char PROGMEM hexChar[] = "0123456789ABCDEF";
 
