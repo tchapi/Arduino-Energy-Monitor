@@ -18,8 +18,8 @@ SPI_CLOCK_DIVIDER); // you can change this clock speed but DI
 // Security can be WLAN_SEC_UNSEC, WLAN_SEC_WEP, WLAN_SEC_WPA or WLAN_SEC_WPA2
 #define WLAN_SECURITY   WLAN_SEC_WPA2
 
-#define WLAN_SSID       "tchap"        // cannot be longer than 32 characters!
-#define WLAN_PASS       "tchaptchaptchap"
+#define WLAN_SSID       "Your SSID"        // cannot be longer than 32 characters!
+#define WLAN_PASS       "Your Password"
 
 // Wifi definitions
 const unsigned long
@@ -33,9 +33,9 @@ unsigned long
 Adafruit_CC3000_Client
   client;        // For WiFi connections
 const char
-  host[]          = "tchap.me",
-  endpoint[]      = "/test.php",
-  private_key[]   = "m88JNhTBEZyX"; // 12 characters long !!
+  host[]          = "server.com",
+  endpoint[]      = "/endpoint";
+char private_key[]   = "mYPrIvAtEkEy"; // 12 characters long !!
 uint32_t ip = 0L, t;
 char Wstr[15];
 
