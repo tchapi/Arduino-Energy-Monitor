@@ -27,7 +27,7 @@ app.post('/home/energy', function (req, res) {
     
     temperature = req.body.t
     power = req.body.w
-    date = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '').replace(/-/, '\/')
+    date = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '').replace(/-/g, '\/')
 
     // Format log
     /*
