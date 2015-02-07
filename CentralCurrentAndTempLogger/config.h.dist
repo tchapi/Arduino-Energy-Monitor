@@ -2,6 +2,6 @@
 #define WLAN_PASS       "Your Password"
 
 const char
-  host[]          = "my.server.com",
-  endpoint[]      = "/api/endpoint";
-char private_key[]   = "mYpRiVaTeKeY"; // 12 characters long !!
+  host[]           = "my.server.com",
+  endpoint[]       = "/api/endpoint";
+char private_key[] = "mYpRiVaTeKeY"; // 12 characters long !!

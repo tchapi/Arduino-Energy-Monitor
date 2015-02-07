@@ -9,7 +9,7 @@ void loop() {
   double Irms = calcIrms(1480);  // Calculate Irms only
   int W = (int)(Irms*VOLTAGE);
 
-  double temp = getTemperature(10000);  // Calculate T
+  double temp = getTemperature(1000);  // Calculate T
 // 
 //  if (DEBUG) { 
 //    Serial.print("Apparent Instant Power : ");
@@ -54,13 +54,17 @@ void loop() {
     /*          DISPLAYING TEMP           */
     /**************************************/
     // Round up
+
+    matrix.println(); // Clears first character just in case
+    matrix.writeDisplay();
+
     int temp_display = floor(temp*10);
     // 4 digit display
     matrix.writeDigitNum(1, (temp_display % 1000) / 100);
     matrix.writeDigitNum(3, (temp_display % 100) /10, true);
     matrix.writeDigitNum(4, temp_display % 10);
     
-    // We need to call this to display changes in the strip and the matrix:
+    // We need to call this to display changes in the matrix:
     matrix.writeDisplay();
   
     /**************************************/
@@ -69,11 +73,18 @@ void loop() {
 
     // if ten seconds have passed since your last connection,
     // then connect again and send data:
-    if (millis() - lastConnectionTime > postingInterval) {
+    if (millis() - lastConnectionTime > postingInterval || millis() < lastConnectionTime /* millis() will overflow after 50days approx */) {
       strip.setPixelColor(0,255,255,255);
       strip.show();
-      sendValues(temp, W); // Actually send to the server
+      bool result = sendValues(temp, W); // Actually send to the server
+
+      // Display a different color depending on the result
+      strip.setPixelColor(0,(result == false)?red:green);
+      strip.show();
       lastConnectionTime = millis();
+
+      // Led off
+      delay(250);
       strip.setPixelColor(0,0,0,0);
       strip.show();
     }

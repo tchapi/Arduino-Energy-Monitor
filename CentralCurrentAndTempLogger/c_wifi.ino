@@ -21,10 +21,10 @@ SPI_CLOCK_DIVIDER); // you can change this clock speed but DI
 
 // Wifi definitions
 const unsigned long
-    dhcpTimeout     = 60L * 1000L, // Max time to wait for address from DHCP
-    connectTimeout  = 15L * 1000L, // Max time to wait for server connection
-    responseTimeout = 15L * 1000L, // Max time to wait for data from server
-    postingInterval = 10L * 1000L; //delay between samples
+    dhcpTimeout     = 20L * 1000L, // Max time to wait for address from DHCP
+    connectTimeout  = 10L * 1000L, // Max time to wait for server connection
+    responseTimeout = 2L * 1000L, // Max time to wait for data from server
+    postingInterval = 3L * 1000L;  // Delay between posting data
 unsigned long
     currentTime = 0L,
     lastConnectionTime = 0L;
@@ -32,13 +32,14 @@ Adafruit_CC3000_Client
   client;        // For WiFi connections
 uint32_t ip = 0L, t;
 char Wstr[15];
+bool has_to_reconnect = false;
 
 /* 
 
 Send a value to a server
 
 */
-boolean sendValues(double temp, int W) {
+bool sendValues(double temp, int W) {
   
   // Connect to numeric IP
   client = cc3000.connectTCP(ip, 80);
@@ -78,13 +79,20 @@ boolean sendValues(double temp, int W) {
     if(c == '{') {
       debug(F("done."));
     } else if(c < 0) {
+      matrix.print(0xEEEE, HEX);
+      matrix.writeDisplay();
       debug(F("timeout."));
     } else {
+      matrix.print(0xEBAD, HEX);
+      matrix.writeDisplay();
       debug(F("error."));
     }
     client.close();
     return (c == '{');
   } else {
+    client.close();
+    matrix.print(0xFAC0, HEX);
+    matrix.writeDisplay();
     debug(F("Failed to connect."));
     return false;
   }

@@ -47,6 +47,14 @@ void setup() {
 //
 //  }
 
+  setup_wifi();
+
+  strip.setBrightness(2);
+  strip.show();
+  
+}
+
+bool setup_wifi() {
   // Initialize the CC3000 
   if(!cc3000.begin()) {
     matrix.print(0xE, HEX);
@@ -85,9 +93,6 @@ void setup() {
   if(0L == ip) {
     hang(F("Failed to retrieve host IP"));
   }
-  
-  strip.setBrightness(15);
-  strip.show();
-  
+ 
 }
 
