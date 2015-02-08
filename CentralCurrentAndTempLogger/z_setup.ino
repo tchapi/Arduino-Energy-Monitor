@@ -9,7 +9,7 @@ void setup() {
  
   matrix.begin(0x70);
   matrix.setBrightness(0);
-  matrix.println(); // starts with nothing
+  matrix.clear(); // starts with nothing
   matrix.writeDisplay();
   
   strip.begin();
@@ -84,7 +84,6 @@ bool setup_wifi() {
   }
   
   // Here, we are connected and ready to roll !
-  
   t = millis();
   while((0L == ip) && ((millis() - t) < connectTimeout)) {
     if(cc3000.getHostByName((char *)host, &ip)) break;

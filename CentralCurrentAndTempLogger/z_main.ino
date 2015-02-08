@@ -9,7 +9,7 @@ void loop() {
   double Irms = calcIrms(1480);  // Calculate Irms only
   int W = (int)(Irms*VOLTAGE);
 
-  double temp = getTemperature(1000);  // Calculate T
+  double temp = getTemperature(5000);  // Calculate T
 // 
 //  if (DEBUG) { 
 //    Serial.print("Apparent Instant Power : ");
@@ -27,7 +27,7 @@ void loop() {
   strip.setPixelColor(1,0,0,0);
   strip.show();
   
-  if (first_loop == false) { // First loop, we skip displaying
+  if (first_loop == false) { // On the first loop, we skip displaying
     
     /**************************************/
     /*          DISPLAYING POWER          */
@@ -53,11 +53,10 @@ void loop() {
     /**************************************/
     /*          DISPLAYING TEMP           */
     /**************************************/
+    
+    matrix.clear(); // Clears just in case
+
     // Round up
-
-    matrix.println(); // Clears first character just in case
-    matrix.writeDisplay();
-
     int temp_display = floor(temp*10);
     // 4 digit display
     matrix.writeDigitNum(1, (temp_display % 1000) / 100);
@@ -77,18 +76,29 @@ void loop() {
       strip.setPixelColor(0,255,255,255);
       strip.show();
       bool result = sendValues(temp, W); // Actually send to the server
-
+    
       // Display a different color depending on the result
       strip.setPixelColor(0,(result == false)?red:green);
       strip.show();
       lastConnectionTime = millis();
-
-      // Led off
       delay(250);
+      
+      if (result == false) {
+        // Trying to reconnect
+        strip.setPixelColor(0,orange);
+        strip.show();
+        setup_wifi();
+        lastConnectionTime = millis();
+      }
+      
+      // Led off
       strip.setPixelColor(0,0,0,0);
       strip.show();
     }
 
+  } else {
+    strip.setPixelColor(1,green);
+    strip.show();
   }
   
   /* DELAY FOR SAMPLING */
