@@ -70,7 +70,7 @@ double getTemperature(int NUMBER_OF_SAMPLES) {
 
   double T_RATIO = ((SUPPLYVOLTAGE / 1000.0) / (ADC_COUNTS));
   // MCP 9700 : 500mV = 0°C and 10mV / °C (http://ww1.microchip.com/downloads/en/DeviceDoc/21942e.pdf)
-  return (T_RATIO * sumT / NUMBER_OF_SAMPLES - 0.5) / 0.01 * 1.15 - 17; // includes correction from reality
+  return (T_RATIO * sumT / NUMBER_OF_SAMPLES - 0.5) / 0.01; // includes correction from reality
 
 }
 
