@@ -1,3 +1,5 @@
 config.h
 config.json
 node_modules
+other_stuff
+.DS_Store
