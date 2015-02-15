@@ -20,7 +20,7 @@ try {
 }
 
 // accept POST request
-app.post('/home/energy', function (req, res) {
+app.post(config.PATH, function (req, res) {
 
   // Check for key
   if (req.body.key == config.PRIVATE_KEY) {

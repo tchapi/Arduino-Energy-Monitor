@@ -1,4 +1,5 @@
 {
   "PRIVATE_KEY" : "mYpRiVaTeKeY",
-  "LOG_FILE" : "/var/log/data/data.log"
+  "LOG_FILE" : "/var/log/data/data.log",
+  "PATH" : "/home/energy"
 }
