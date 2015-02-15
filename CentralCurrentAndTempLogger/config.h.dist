@@ -1,7 +1,15 @@
+// WiFi stuff
 #define WLAN_SSID       "Your SSID"        // cannot be longer than 32 characters!
 #define WLAN_PASS       "Your Password"
 
+// Your power consumption basics
+#define MAX_CURRENT 30.0 // 30 A = A regular 6kW electricity subscription
+
+// Your server
 const char
   host[]           = "my.server.com",
   endpoint[]       = "/api/endpoint";
 char private_key[] = "mYpRiVaTeKeY"; // 12 characters long !!
+
+// Sampling rate, default : 1 second
+const unsigned long samplingInterval = 1L * 1000L; // delay between samples
