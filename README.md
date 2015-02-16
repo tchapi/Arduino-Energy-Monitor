@@ -71,20 +71,30 @@ I created a custom PCB to hold the electronics (apart from the Arduino shield). 
 
 The custom shield holds the connectors and some basic electronics. It is very simple to solder on your own.
 
-BOM :
+BOM for the custom shield :
 
-  - TMP36 temperature sensor
-  - non-invasive 30A current sensor
   - 1x 1000µF capacitor
   - 1x 10µF capacitor
   - 2x 10kΩ
   - 2x 200Ω
   - 1x 47Ω
   - 1x Stereo TRS connector (jack 3.5mm)
-  - Pin headers
+  - Some pin headers
   - 1x jst connector 3pin and x jst connector 4pin
 
 To create the PCB, I use [Fritzing Fab](http://fab.fritzing.org/pricing) as well.
+
+
+Other parts needed :
+
+  - some wires
+  - 1x Arduino UNO
+  - 1x Adafruit CC3000 WiFi Shield
+  - 1x antenna
+  - 1x TMP36 temperature sensor
+  - 1x non-invasive 30A current sensor
+  - 1x Quad Alphanumeric Display - 0.54" Digits w/ I2C Backpack
+  - 1x NeoPixel Stick - 8 x WS2812 5050 RGB LED with Integrated Drivers
 
 ## Casing
 
@@ -106,3 +116,8 @@ The CATIA files (.catpart and .catproduct) are available as well if you want to 
 To dim the displays and add a somehow nice touch to the objet, the fourth part is a little 3mm-thick plexiglass slap that can be cutted on a conventional laser cutter.
 
 You can find the Illustrator file [here](https://github.com/tchapi/Arduino-Energy-Monitor/tree/master/Design/Bo%C3%AEtier%20principal/Plaque%20de%20protection%20plexiglas).
+
+
+## Licence
+
+Everything is released under the GNU GPL v2. Basically, you can reuse everything as long as you credit me somehow :)
