@@ -90,7 +90,10 @@ bool setup_wifi() {
     delay(1000);
   }
   if(0L == ip) {
-    hang(F("Failed to retrieve host IP"));
+    matrix.print(0xFF0E, HEX);
+    matrix.writeDisplay();
+    debug(F("Failed to retrieve host IP. Reseting"));
+    resetFunc(); // Resets everything
   }
  
 }

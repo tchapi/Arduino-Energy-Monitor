@@ -21,8 +21,8 @@ SPI_CLOCK_DIVIDER); // you can change this clock speed but DI
 
 // Wifi definitions
 const unsigned long
-    dhcpTimeout     = 20L * 1000L, // Max time to wait for address from DHCP
-    connectTimeout  = 10L * 1000L, // Max time to wait for server connection
+    dhcpTimeout     = 30L * 1000L, // Max time to wait for address from DHCP
+    connectTimeout  = 20L * 1000L, // Max time to wait for server connection
     responseTimeout = 2L * 1000L, // Max time to wait for data from server
     postingInterval = 3L * 1000L;  // Delay between posting data
 unsigned long
