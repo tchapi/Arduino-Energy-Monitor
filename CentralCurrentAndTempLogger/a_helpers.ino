@@ -1,4 +1,4 @@
-#define DEBUG 1
+#define DEBUG 0
 
 /*
 
@@ -58,13 +58,5 @@ void debug(const __FlashStringHelper *str) {
   if(DEBUG) {
     Serial.println(str);
   }
-}
-
-/*
-  On error, print PROGMEM string to serial monitor and stop
-*/
-void hang(const __FlashStringHelper *str) {
-  debug(str);
-  for(;;);
 }
 

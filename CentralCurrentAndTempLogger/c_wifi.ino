@@ -53,7 +53,7 @@ bool sendValues(double temp, int W) {
     dtostrf(temp, 4, 1, str_temp);
     sprintf(str_power, "%d", W);
   
-    Serial.print("Sending POST data... ");
+    debug(F("Sending POST data... "));
     
     client.fastrprint(F("POST "));
     client.fastrprint(endpoint);

@@ -59,28 +59,32 @@ bool setup_wifi() {
   if(!cc3000.begin()) {
     matrix.print(0xE, HEX);
     matrix.writeDisplay();
-    hang(F("Unable to initialize the Wifi module."));
+    debug(F("Unable to initialize the Wifi module."));
+    resetFunc(); // Resets everything
   }
 
   // debug(F("Deleting old connection profiles ... "));
   if(!cc3000.deleteProfiles()) {
     matrix.print(0xEE, HEX);
     matrix.writeDisplay();
-    hang(F("Unable to delete profiles."));
+    debug(F("Unable to delete profiles."));
+    resetFunc(); // Resets everything
   }
 
   // Attempting to connect to an access point 
   if(!cc3000.connectToAP(WLAN_SSID, WLAN_PASS, WLAN_SECURITY)) {
     matrix.print(0xEEE, HEX);
     matrix.writeDisplay();
-    hang(F("Connection to WPA failed."));
+    debug(F("Connection to WPA failed."));
+    resetFunc(); // Resets everything
   }
 
   for(t=millis(); !cc3000.checkDHCP() && ((millis() - t) < dhcpTimeout); delay(100));
   if(!cc3000.checkDHCP()) {
     matrix.print(0xEEEE, HEX);
     matrix.writeDisplay();
-    hang(F("Could not obtain an IP."));
+    debug(F("Could not obtain an IP."));
+    resetFunc(); // Resets everything
   }
   
   // Here, we are connected and ready to roll !
