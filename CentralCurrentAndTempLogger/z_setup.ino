@@ -1,3 +1,6 @@
+#include <avr/wdt.h>
+#include <SoftReset.h>
+
 void setup() {
 
   Serial.begin(9600); 
@@ -60,7 +63,7 @@ bool setup_wifi() {
     matrix.print(0xE, HEX);
     matrix.writeDisplay();
     debug(F("Unable to initialize the Wifi module."));
-    resetFunc(); // Resets everything
+    soft_restart(); // Resets everything
   }
 
   // debug(F("Deleting old connection profiles ... "));
@@ -68,7 +71,7 @@ bool setup_wifi() {
     matrix.print(0xEE, HEX);
     matrix.writeDisplay();
     debug(F("Unable to delete profiles."));
-    resetFunc(); // Resets everything
+    soft_restart(); // Resets everything
   }
 
   // Attempting to connect to an access point 
@@ -76,7 +79,7 @@ bool setup_wifi() {
     matrix.print(0xEEE, HEX);
     matrix.writeDisplay();
     debug(F("Connection to WPA failed."));
-    resetFunc(); // Resets everything
+    soft_restart(); // Resets everything
   }
 
   for(t=millis(); !cc3000.checkDHCP() && ((millis() - t) < dhcpTimeout); delay(100));
@@ -84,7 +87,7 @@ bool setup_wifi() {
     matrix.print(0xEEEE, HEX);
     matrix.writeDisplay();
     debug(F("Could not obtain an IP."));
-    resetFunc(); // Resets everything
+    soft_restart(); // Resets everything
   }
   
   // Here, we are connected and ready to roll !
@@ -97,7 +100,7 @@ bool setup_wifi() {
     matrix.print(0xFF0E, HEX);
     matrix.writeDisplay();
     debug(F("Failed to retrieve host IP. Reseting"));
-    resetFunc(); // Resets everything
+    soft_restart(); // Resets everything
   }
  
 }

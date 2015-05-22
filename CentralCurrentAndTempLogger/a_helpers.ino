@@ -48,9 +48,6 @@ long readVcc() {
   #endif
 }
 
-//declare reset function at address 0
-void(* resetFunc) (void) = 0;
-
 /*
   Debug function 
 */
