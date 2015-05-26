@@ -45,6 +45,8 @@ If you want to change the payload, you might want to look at lines `66`to `72` i
     urlEncode(client, private_key, false, false);
 ```
 
+> NB : it is advised to compile and upload the code with the Arduino IDE 1.0.5 version that can be found [here](http://www.arduino.cc/en/Main/OldSoftwareReleases#1.0.x) because the CC3000 shield is not really a big fan of the newer IDE releases.
+
 ### Server code
 
 Of course, the server can be any application that can accept and process requests such as :
