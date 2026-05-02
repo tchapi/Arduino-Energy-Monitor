@@ -1,6 +1,8 @@
 Arduino and Node.js Energy Monitor
 ======================
 
+Related blog post: https://tchap.me/blog/creating-a-simple-energy-monitor/
+
 A little box that monitors the mains current and average room temperature and sends the data through WiFi to a server for storage, display and analysis.
 
 Uses a **TMP36 temperature sensor** (like [this](https://www.sparkfun.com/products/10988)) and a **non-invasive current sensor** (like [this one](https://www.sparkfun.com/products/11005)), coupled with a **Wifi Shield** (this [one here](https://learn.adafruit.com/adafruit-cc3000-wifi)).
